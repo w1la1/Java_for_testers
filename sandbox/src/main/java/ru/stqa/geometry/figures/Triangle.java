@@ -1,17 +1,10 @@
 package ru.stqa.geometry.figures;
 
-public class Triangle {
-    double a, b, c;
+public record Triangle(double a, double b, double c) {
 
-    public Triangle(double a, double b, double c) {
-        this.a = a;
-        this.b = b;
-        this.c = c;
-
-    }
 
     public static void printTrianglePerimeter(Triangle b) {
-        String text = String.format("Периметр треугольника со сторонами %f и %f и %f = %f ",b.a,b.b,b.c ,b.perimeter());
+        String text = String.format("Периметр треугольника со сторонами %f и %f и %f = %f ", b.a, b.b, b.c, b.perimeter());
         System.out.println(text);
     }
 
@@ -22,7 +15,7 @@ public class Triangle {
 
 
     public static void printTriangleArea(Triangle a) {
-        String text = String.format("Площадь треугольника со сторонами %f и %f и %f = %f ",a.a,a.b,a.c ,a.area());
+        String text = String.format("Площадь треугольника со сторонами %f и %f и %f = %f ", a.a, a.b, a.c, a.area());
         System.out.println(text);
     }
 
