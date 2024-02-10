@@ -5,11 +5,14 @@ import org.junit.jupiter.api.Test;
 
 public class TriangleTests {
     @Test
-    void canCalculatePerimeter () {
-        Assertions.assertEquals(18.,Triangle.perimeter(5.,6.,7));
+    void canCalculatePerimeter() {
+        var t = new Triangle(5., 6., 7.);
+        Assertions.assertEquals(18., t.perimeter());
     }
+
     @Test
     void canCalculateSquare() {
-        Assertions.assertEquals(17.279999999999998,Triangle.area(7.2,6.,6.));
+        var p = new Triangle(7.2, 6., 6.);
+        Assertions.assertEquals(17.279999999999998, p.area());
     }
 }

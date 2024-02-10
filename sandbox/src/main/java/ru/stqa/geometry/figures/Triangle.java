@@ -1,28 +1,37 @@
 package ru.stqa.geometry.figures;
 
 public class Triangle {
+    double a, b, c;
 
+    public Triangle(double a, double b, double c) {
+        this.a = a;
+        this.b = b;
+        this.c = c;
 
-    public static void printTrianglePerimeter(double a, double b, double c) {
-        String text = String.format("Периметр треугольника со сторонами %f и %f и %f = %f  ", a, b, c, perimeter(a, b, c));
+    }
+
+    public static void printTrianglePerimeter(Triangle b) {
+        String text = String.format("Периметр треугольника со сторонами %f и %f и %f = %f ",b.a,b.b,b.c ,b.perimeter());
         System.out.println(text);
     }
 
-    public static double perimeter(double a, double b, double c) {
-        return a + b + c;
+
+    double triangleHalfPerimeter() {
+        return (this.a + this.b + this.c) / 2;
     }
 
-    static double triangleHalfPerimeter(double a, double b, double c) {
-        return (a + b + c) / 2;
+
+    public static void printTriangleArea(Triangle a) {
+        String text = String.format("Площадь треугольника со сторонами %f и %f и %f = %f ",a.a,a.b,a.c ,a.area());
+        System.out.println(text);
     }
 
-    static double area(double a, double b, double c) {
+    public double area() {
         // S = √(p * (p — a) * (p — b) * (p — c))
-        return Math.sqrt((triangleHalfPerimeter(a, b, c) * (triangleHalfPerimeter(a, b, c) - a) * (triangleHalfPerimeter(a, b, c) - b) * (triangleHalfPerimeter(a, b, c) - c)));
+        return Math.sqrt((triangleHalfPerimeter() * (triangleHalfPerimeter() - this.a) * (triangleHalfPerimeter() - this.b) * (triangleHalfPerimeter() - this.c)));
     }
 
-    public static void printTriangleArea(double a, double b, double c) {
-        String text = String.format("Площадь треугольника со сторонами %f и %f и %f = %f ", a, b, c, area(a, b, c));
-        System.out.println(text);
+    public double perimeter() {
+        return this.a + this.b + this.c;
     }
 }
