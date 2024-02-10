@@ -10,6 +10,6 @@ public class TriangleTests {
     }
     @Test
     void canCalculateSquare() {
-        Assertions.assertEquals(17.279999999999998,Triangle.square(7.2,6.,6.));
+        Assertions.assertEquals(17.279999999999998,Triangle.area(7.2,6.,6.));
     }
 }

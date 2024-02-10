@@ -15,7 +15,7 @@ public class Geometry {
 
 
         Triangle.printTrianglePerimeter(5., 6., 7.);
-        Triangle.printTriangleSquare(5., 6., 7.);
+        Triangle.printTriangleArea(5., 6., 7.);
 
     }
 
