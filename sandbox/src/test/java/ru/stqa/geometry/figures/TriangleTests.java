@@ -11,7 +11,7 @@ public class TriangleTests {
     }
 
     @Test
-    void canCalculateSquare() {
+    void canCalculateArea() {
         var p = new Triangle(7.2, 6., 6.);
         Assertions.assertEquals(17.279999999999998, p.area());
     }
@@ -34,5 +34,17 @@ public class TriangleTests {
         } catch (IllegalArgumentException exception) {
             //ok
         }
+    }
+    @Test
+    void testEquality(){
+        var t1 = new Triangle(5.,6.,7.);
+        var t2 = new Triangle(5.,6.,7.);
+        Assertions.assertEquals(t1,t2);
+    }
+    @Test
+    void testEquality2(){
+        var t1 = new Triangle(6.,5.,7.);
+        var t2 = new Triangle(7.,5.,6.);
+        Assertions.assertEquals(t1,t2);
     }
 }
