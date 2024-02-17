@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 public class GroupCreationTests {
     private static WebDriver driver;
@@ -13,7 +13,7 @@ public class GroupCreationTests {
     @BeforeEach
     public void setUp() {
         if (driver == null) {
-            driver = new FirefoxDriver();
+            driver = new ChromeDriver();
             Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
             driver.get("http://localhost/addressbook/");
             driver.manage().window().setSize(new Dimension(1082, 824));
@@ -34,8 +34,7 @@ public class GroupCreationTests {
         driver.findElement(By.name("group_header")).sendKeys("group_header");
         driver.findElement(By.name("group_footer")).sendKeys("group_footer");
         driver.findElement(By.name("submit")).click();
-        driver.findElement(By.linkText("groups")).click();
-        driver.findElement(By.linkText("Logout")).click();
+        driver.findElement(By.linkText("group page")).click();
     }
 
     private boolean isElementPresent(By locator) {
@@ -45,7 +44,6 @@ public class GroupCreationTests {
         } catch (NoSuchElementException exception) {
             return false;
         }
-
     }
 
     @Test
@@ -59,7 +57,6 @@ public class GroupCreationTests {
         driver.findElement(By.name("group_header")).sendKeys("");
         driver.findElement(By.name("group_footer")).sendKeys("");
         driver.findElement(By.name("submit")).click();
-        driver.findElement(By.linkText("groups")).click();
-        driver.findElement(By.linkText("Logout")).click();
+        driver.findElement(By.linkText("group page")).click();
     }
 }
