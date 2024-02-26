@@ -2,7 +2,6 @@ package manager;
 
 import model.GroupData;
 import org.openqa.selenium.By;
-import tests.HelperBase;
 
 public class GroupHelper extends HelperBase {
 
@@ -11,16 +10,6 @@ public class GroupHelper extends HelperBase {
 
     }
 
-    public void openGroupsPage() {
-        if (!manager.isElementPresent(By.name("new"))) {
-            click(By.linkText("groups"));
-        }
-    }
-
-    public boolean isGroupPresent() {
-        openGroupsPage();
-        return manager.isElementPresent(By.name("selected[]"));
-    }
 
     public void createGroup(GroupData group) {
         openGroupsPage();
@@ -77,8 +66,19 @@ public class GroupHelper extends HelperBase {
         click(By.name("edit"));
     }
 
-    private void  selectGroup() {
+    private void selectGroup() {
         click(By.name("selected[]"));
+    }
+
+    public void openGroupsPage() {
+        if (!manager.isElementPresent(By.name("new"))) {
+            click(By.linkText("groups"));
+        }
+    }
+
+    public boolean isGroupPresent() {
+        openGroupsPage();
+        return manager.isElementPresent(By.name("selected[]"));
     }
 
 }

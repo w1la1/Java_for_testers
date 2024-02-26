@@ -10,6 +10,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class ApplicationManager {
     private LoginHelper session;
     private GroupHelper groups;
+    private ContactHelper contacts;
     public WebDriver driver;
 
     public void init(String browser) {
@@ -40,6 +41,13 @@ public class ApplicationManager {
             groups = new GroupHelper(this);
         }
         return groups;
+    }
+
+    public ContactHelper contacts() {
+        if (contacts == null) {
+            contacts = new ContactHelper(this);
+        }
+        return contacts;
     }
 
     public boolean isElementPresent(By locator) {

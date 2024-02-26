@@ -1,7 +1,6 @@
 package manager;
 
 import org.openqa.selenium.By;
-import tests.HelperBase;
 
 public class LoginHelper extends HelperBase {
 
