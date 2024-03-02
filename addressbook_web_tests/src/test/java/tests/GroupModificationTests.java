@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 public class GroupModificationTests extends TestBase {
     @Test
     void canModifyGroup() {
-        if (!app.groups().isGroupPresent()) {
+        if (app.groups().getGroupsCount() == 0) {
             app.groups().createGroup(new GroupData("java_for_testers", "header", "footer"));
         }
         app.groups().modifyGroup(new GroupData().withName("modified name"));

@@ -60,4 +60,22 @@ public class ContactHelper extends HelperBase {
     private void initContactCreation() {
         click(By.linkText("add new"));
     }
+
+    public int getContactsCount() {
+        openContactPage();
+        return manager.driver.findElements(By.name("selected[]")).size();
+    }
+
+    public void removeAllContacts() {
+        selectAllContact();
+        removeSelectedContact();
+    }
+
+    private void selectAllContact() {
+        var checkboxes = manager.driver.findElements(By.name("selected[]"));
+        for (var checkbox : checkboxes) {
+            checkbox.click();
+        }
+    }
+
 }

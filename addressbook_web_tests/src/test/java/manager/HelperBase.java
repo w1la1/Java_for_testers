@@ -1,6 +1,5 @@
 package manager;
 
-import manager.ApplicationManager;
 import org.openqa.selenium.By;
 
 public class HelperBase {
@@ -16,7 +15,7 @@ public class HelperBase {
         manager.driver.findElement(locator).sendKeys(text);
     }
 
-    protected void click(By locator) {
+    public void click(By locator) {
         manager.driver.findElement(locator).click();
     }
 }

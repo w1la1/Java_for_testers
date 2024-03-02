@@ -10,7 +10,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class ApplicationManager {
     private LoginHelper session;
     private GroupHelper groups;
-    private ContactHelper contacts;
+    public ContactHelper contacts;
     public WebDriver driver;
 
     public void init(String browser) {
