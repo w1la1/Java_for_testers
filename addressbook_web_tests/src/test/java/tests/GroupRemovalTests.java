@@ -4,22 +4,29 @@ import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class GroupRemovalTests extends TestBase {
     @Test
     public void canRemoveGroup() {
         if (app.groups().getGroupsCount() == 0) {
-            app.groups().createGroup(new GroupData("java_for_testers", "header", "footer"));
+            app.groups().createGroup(new GroupData("", "java_for_testers", "header", "footer"));
         }
-        int groupCount = app.groups().getGroupsCount();
-        app.groups().removeGroup();
-        int newGroupCount = app.groups().getGroupsCount();
-        Assertions.assertEquals(groupCount - 1, newGroupCount);
+        var oldGroups = app.groups().getGroupsList();
+        var random = new Random();
+        var index = random.nextInt(oldGroups.size());
+        app.groups().removeGroup(oldGroups.get(index));
+        var newGroups = app.groups().getGroupsList();
+        var expectedList = new ArrayList<>(oldGroups);
+        expectedList.remove(index);
+        Assertions.assertEquals(newGroups, expectedList);
     }
 
     @Test
     void canRemoveAllGroupsAtOnce() {
         if (app.groups().getGroupsCount() == 0) {
-            app.groups().createGroup(new GroupData("java_for_testers", "header", "footer"));
+            app.groups().createGroup(new GroupData("", "java_for_testers", "header", "footer"));
         }
         app.groups().removeAllGroups();
         Assertions.assertEquals(0, app.groups().getGroupsCount());

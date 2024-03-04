@@ -3,6 +3,9 @@ package manager;
 import model.ContactData;
 import org.openqa.selenium.By;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ContactHelper extends HelperBase {
     public ContactHelper(ApplicationManager manager) {
         super(manager);
@@ -26,9 +29,9 @@ public class ContactHelper extends HelperBase {
         returnToContactPage();
     }
 
-    public void removeContact() {
+    public void removeContact(ContactData contact) {
         openContactPage();
-        selectContact();
+        selectContact(contact);
         removeSelectedContact();
         returnToContactPage();
     }
@@ -37,8 +40,8 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//input[@value=\'Delete\']"));
     }
 
-    private void selectContact() {
-        click(By.name("selected[]"));
+    private void selectContact(ContactData contact) {
+        click(By.cssSelector(String.format("input[value='%s']", contact.id())));
     }
 
     private void returnToContactPage() {
@@ -76,6 +79,37 @@ public class ContactHelper extends HelperBase {
         for (var checkbox : checkboxes) {
             checkbox.click();
         }
+    }
+
+    public void modifyContact(ContactData contact, ContactData modifiedContact) {
+        openContactPage();
+        selectContact(contact);
+        initContactModification();
+        fillContactForm(modifiedContact);
+        submitContactModification();
+        returnToContactPage();
+    }
+
+    private void submitContactModification() {
+        click(By.name("update"));
+    }
+
+    private void initContactModification() {
+        click(By.xpath("//img[@alt='Edit']"));
+    }
+
+    public List<ContactData> getContactsList() {
+        openContactPage();
+        var contacts = new ArrayList<ContactData>();
+       // var tds = manager.driver.findElements(By.xpath("//*[@id=\"maintable\"]/tbody/tr[2]/td[1]"));td.center:nth-child(1)
+        var tds = manager.driver.findElements(By.cssSelector("td.center:nth-child(1)"));//#maintable > tbody > tr:nth-child(2) > td:nth-child(1)
+        for (var td : tds) {
+            var lastname = td.getText();
+            var checkbox = td.findElement(By.name("selected[]"));
+            var id = checkbox.getAttribute("value");
+            contacts.add(new ContactData().withId(id).withLastName(lastname));
+        }
+        return contacts;
     }
 
 }
