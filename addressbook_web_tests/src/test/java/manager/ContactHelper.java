@@ -105,11 +105,17 @@ public class ContactHelper extends HelperBase {
       var className = td.findElement(By.cssSelector("td.center"));
       var checkbox = className.findElement(By.name("selected[]"));
       var id = checkbox.getAttribute("value");
-      var lastName = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[1]", id))).getText();
-      var firstName = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[2]", id))).getText();
-      var address = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[3]", id))).getText();
-      var email = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[4]", id))).getText();
-      var phone = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[5]", id))).getText();
+      //#maintable > tbody > tr.odd > td:nth-child(2) #maintable > tbody > tr.odd > td:nth-child(3)
+      var lastName = className.findElement(By.xpath("//td[2]")).getText();
+      var firstName = className.findElement(By.xpath("//td[3]")).getText();
+      var address = className.findElement(By.xpath("//td[4]")).getText();
+      var email = className.findElement(By.xpath("//td[5]")).getText();
+      var phone = className.findElement(By.xpath("//td[6]")).getText();
+      //var lastName = className.findElement(By.xpath(String.format("//input[@id='%s']/following-sibling::td[1]", id))).getText();
+     // var firstName = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[2]", id))).getText();
+     // var address = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[3]", id))).getText();
+    //  var email = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[4]", id))).getText();
+     // var phone = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[5]", id))).getText();
       contacts.add(new ContactData(id, lastName, firstName, address, email, phone));
     }
     return contacts;
