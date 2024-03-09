@@ -42,9 +42,9 @@ public class ContactCreationTests extends TestBase {
 //    return result;
     var json = Files.readString(Paths.get("contacts.json"));
     ObjectMapper mapper = new ObjectMapper();
-    var value = mapper.readValue(json, new TypeReference<ContactData>() {
+    var value = mapper.readValue(json, new TypeReference<List<ContactData>>() {
     });
-   // result.addAll(value);
+    result.addAll(value);
     return result;
   }
 
