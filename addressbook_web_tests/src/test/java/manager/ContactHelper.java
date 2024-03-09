@@ -58,6 +58,7 @@ public class ContactHelper extends HelperBase {
     type(By.name("address"), contact.address());
     type(By.name("email"), contact.eMail());
     type(By.name("home"), contact.phone());
+    attach(By.name("photo"), contact.photo());
   }
 
   private void initContactCreation() {
@@ -116,7 +117,7 @@ public class ContactHelper extends HelperBase {
      // var address = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[3]", id))).getText();
     //  var email = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[4]", id))).getText();
      // var phone = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[5]", id))).getText();
-      contacts.add(new ContactData(id, lastName, firstName, address, email, phone));
+      contacts.add(new ContactData().withId(id).withLastName(lastName).withFirstName(firstName));
     }
     return contacts;
   }

@@ -1,0 +1,25 @@
+[ {
+  "id" : "",
+  "lastName" : "",
+  "firstName" : "",
+  "address" : "",
+  "eMail" : "",
+  "phone" : "",
+  "photo" : "src\\test\\resources\\images\\map.png"
+}, {
+  "id" : "",
+  "lastName" : "mvcetrczte",
+  "firstName" : "bdrkkvgqxp",
+  "address" : "jcedlnrcfe",
+  "eMail" : "stbzzueksl",
+  "phone" : "hkrbveitaq",
+  "photo" : "src\\test\\resources\\images\\other.png"
+}, {
+  "id" : "",
+  "lastName" : "twnkbsuwvbppijovqbna",
+  "firstName" : "ibnzdrbbifizyngtfgya",
+  "address" : "gcxobuihruwmvfdazmrm",
+  "eMail" : "zohjsqpgwtxaqjzofpwn",
+  "phone" : "mspeyfrnqmdelzhrmeva",
+  "photo" : "src\\test\\resources\\images\\avatar.png"
+} ]

@@ -8,11 +8,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
 
+import static manager.HelperBase.randomFile;
+
 public class ContactModificationTests extends TestBase {
   @Test
   void canModifyContact() {
     if (app.contacts().getContactsCount() == 0) {
-      app.contacts().createContact(new ContactData("", "java_for_testers", "header", "footer", "sd", "8855"));
+      app.contacts().createContact(new ContactData().withLastName("java_for_testers").withFirstName("kfjgsdklfj").withPhoto((randomFile("src/test/resources/images"))));
     }
     var oldContacts = app.contacts().getContactsList();
     var rnd = new Random();
