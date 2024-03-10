@@ -101,17 +101,17 @@ public class ContactHelper extends HelperBase {
   public List<ContactData> getContactsList() {
     var contacts = new ArrayList<ContactData>();
     // var tds = manager.driver.findElements(By.xpath("//*[@id=\"maintable\"]/tbody/tr[2]/td[1]"));td.center:nth-child(1)
-    var tds = manager.driver.findElements(By.name("entry"));//#maintable > tbody > tr:nth-child(2) > td:nth-child(1)
-    for (var td : tds) {
-      var className = td.findElement(By.cssSelector("td.center"));
-      var checkbox = className.findElement(By.name("selected[]"));
+    var tr = manager.driver.findElements(By.name("entry"));//#maintable > tbody > tr:nth-child(2) > td:nth-child(1)
+    for (var td : tr) {
+      //var className = td.findElement(By.xpath(".//td"));
+      var checkbox = td.findElement(By.name("selected[]"));
       var id = checkbox.getAttribute("value");
       //#maintable > tbody > tr.odd > td:nth-child(2) #maintable > tbody > tr.odd > td:nth-child(3)
-      var lastName = className.findElement(By.xpath("//td[2]")).getText();
-      var firstName = className.findElement(By.xpath("//td[3]")).getText();
-      var address = className.findElement(By.xpath("//td[4]")).getText();
-      var email = className.findElement(By.xpath("//td[5]")).getText();
-      var phone = className.findElement(By.xpath("//td[6]")).getText();
+      var lastName = td.findElement(By.xpath("./td[2]")).getText();
+      var firstName = td.findElement(By.xpath("./td[3]")).getText();
+//      var address = td.findElement(By.xpath("./td[4]")).getText();
+//      var email = td.findElement(By.xpath("./td[5]")).getText();
+//      var phone = td.findElement(By.xpath("./td[6]")).getText();
       //var lastName = className.findElement(By.xpath(String.format("//input[@id='%s']/following-sibling::td[1]", id))).getText();
      // var firstName = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[2]", id))).getText();
      // var address = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[3]", id))).getText();

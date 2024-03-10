@@ -49,7 +49,7 @@ public class ContactCreationTests extends TestBase {
   }
 
   public static List<ContactData> negativeContactProvider() {
-    var result = new ArrayList<ContactData>(List.of(new ContactData("", "contact last name '", "contact firstname", "", "", "", "")));
+    var result = new ArrayList<ContactData>(List.of(new ContactData("", "contact last name '", "contact firstname", "", "", "", randomFile("src/test/resources/images"))));
     return result;
   }
 
@@ -70,7 +70,7 @@ public class ContactCreationTests extends TestBase {
         .withPhone("")
         .withPhoto(""));
     expectedList.sort(compareById);
-    //  Assertions.assertEquals(newContacts, expectedList);
+      Assertions.assertEquals(newContacts, expectedList);
   }
 
   @ParameterizedTest
