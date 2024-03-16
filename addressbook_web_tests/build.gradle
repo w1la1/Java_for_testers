@@ -17,14 +17,15 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.0'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.15.0'
+    implementation 'com.mysql:mysql-connector-j:8.3.0'
+    implementation 'org.hibernate.orm:hibernate-core:6.4.4.Final'
 }
-
 test {
     useJUnitPlatform()
     if (project.hasProperty("browser")) {
-        systemProperty("browser",project.property("browser"))
+        systemProperty("browser", project.property("browser"))
     }
     if (project.hasProperty("target")) {
-        systemProperty("target",project.property("target"))
+        systemProperty("target", project.property("target"))
     }
 }

@@ -3,6 +3,7 @@ package tests;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import common.CommonFunctions;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -40,10 +41,11 @@ public class GroupCreationTests extends TestBase {
 //      }
 //    }
     var json = Files.readString(Paths.get("groups.json")); //читает файл целиком json
-   // var xml = Files.readString(Paths.get("groups.xml"));
-    var mapper =  new ObjectMapper(); //new XmlMapper();
-   var value = mapper.readValue(json, new TypeReference<List<GroupData>>() {});
-   // var value = mapper.readValue(new File("groups.xml"), new TypeReference<List<GroupData>>() {});
+    // var xml = Files.readString(Paths.get("groups.xml"));
+    var mapper = new ObjectMapper(); //new XmlMapper();
+    var value = mapper.readValue(json, new TypeReference<List<GroupData>>() {
+    });
+    // var value = mapper.readValue(new File("groups.xml"), new TypeReference<List<GroupData>>() {});
     result.addAll(value);
     return result;
   }
@@ -53,24 +55,37 @@ public class GroupCreationTests extends TestBase {
     return result;
   }
 
+  public static List<GroupData> singleRandomGroup() {
+    return List.of(new GroupData()
+        .withName(CommonFunctions.randomString(10))
+        .withHeader(CommonFunctions.randomString(15))
+        .withFooter(CommonFunctions.randomString(20)));
+  }
+
   @ParameterizedTest
-  @MethodSource("groupProvider")
-  public void canCreateMultipleGroup(GroupData group) {
-    var oldGroups = app.groups().getGroupsList();
-    int groupCount = app.groups().getGroupsCount();
+  @MethodSource("singleRandomGroup")
+  public void canCreateGroup(GroupData group) {
+   // var oldGroups = app.groups().getGroupsList();
+    var oldGroups = app.hbm().getGroupsListHbm();
+    //int groupCount = app.groups().getGroupsCount();
     app.groups().createGroup(group);
-    int newGroupCount = app.groups().getGroupsCount();
-    Assertions.assertEquals(groupCount + 1, newGroupCount);
-    var newGroups = app.groups().getGroupsList();
+    //int newGroupCount = app.groups().getGroupsCount();
+    //Assertions.assertEquals(groupCount + 1, newGroupCount);
+   // var newGroups = app.groups().getGroupsList();
+    var newGroups = app.hbm().getGroupsListHbm();
     Comparator<GroupData> compareById = (o1, o2) -> {
       return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
     };
     newGroups.sort(compareById);
+    var maxID = newGroups.get(newGroups.size() - 1).id();
 
     var expectedList = new ArrayList<>(oldGroups);
-    expectedList.add(group.withId(newGroups.get(newGroups.size() - 1).id()).withHeader("").withFooter(""));
+    expectedList.add(group.withId(maxID));
     expectedList.sort(compareById);
     Assertions.assertEquals(newGroups, expectedList);
+
+  //  var newUiGroups = app.groups().getGroupsList();
+    //var newGroups = app.jdbc().getGroupsListJdbc(); сравнить по ID и nameGroup
   }
 
   @ParameterizedTest
