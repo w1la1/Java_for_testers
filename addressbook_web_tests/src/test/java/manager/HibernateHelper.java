@@ -7,7 +7,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
 
-import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,5 +105,11 @@ public class HibernateHelper extends HelperBase {
       session.persist(convertGroups(groupData));
       session.getTransaction().commit();
     });
+  }
+
+  public List<ContactData> getContactsInGroup(GroupData group) {
+    return convertListContacts(sessionFactory.fromSession(session -> {
+      return session.get(GroupRecord.class,group.id()).contacts;
+    }));
   }
 }
