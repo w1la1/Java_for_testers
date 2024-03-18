@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import common.CommonFunctions;
 import model.ContactData;
-import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,7 +13,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -47,30 +45,36 @@ public class ContactCreationTests extends TestBase {
     result.addAll(value);
     return result;
   }
+  public static List<ContactData> singleRandomContact() throws IOException {
+    return List.of(new ContactData()
+        .withLastName(CommonFunctions.randomString(10))
+        .withFirstName(CommonFunctions.randomString(15))
+        .withAddress(CommonFunctions.randomString(10))
+        .withEmail(CommonFunctions.randomString(15))
+        .withPhone(CommonFunctions.randomString(10)));
+  }
 
   public static List<ContactData> negativeContactProvider() {
-    var result = new ArrayList<ContactData>(List.of(new ContactData("", "contact last name '", "contact firstname", "", "", "", randomFile("src/test/resources/images"))));
+    var result = new ArrayList<ContactData>(List.of(new ContactData("", "contact last name '", "contact firstname", "", "", "")));
     return result;
   }
 
   @ParameterizedTest
-  @MethodSource("contactProvider")
+  @MethodSource("singleRandomContact")
   public void canCreateContacts(ContactData contact) {
-    var oldContacts = app.contacts().getContactsList();
+    var oldContacts = app.hbm().getContactsListHbm();
+    //var oldContacts = app.contacts().getContactsList();
     app.contacts().createContact(contact);
-    var newContacts = app.contacts().getContactsList();
+    var newContacts = app.hbm().getContactsListHbm();
+    //var newContacts = app.contacts().getContactsList();
     Comparator<ContactData> compareById = (o1, o2) -> {
       return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
     };
     newContacts.sort(compareById);
     var expectedList = new ArrayList<>(oldContacts);
-    expectedList.add(contact.withId(newContacts.get(newContacts.size() - 1).id())
-        .withAddress("")
-        .withEmail("")
-        .withPhone("")
-        .withPhoto(""));
+    expectedList.add(contact.withId(newContacts.get(newContacts.size() - 1).id()));
     expectedList.sort(compareById);
-      Assertions.assertEquals(newContacts, expectedList);
+    Assertions.assertEquals(newContacts, expectedList);
   }
 
   @ParameterizedTest

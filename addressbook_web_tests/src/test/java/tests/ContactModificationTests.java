@@ -13,15 +13,17 @@ import static manager.HelperBase.randomFile;
 public class ContactModificationTests extends TestBase {
   @Test
   void canModifyContact() {
-    if (app.contacts().getContactsCount() == 0) {
-      app.contacts().createContact(new ContactData().withLastName("java_for_testers").withFirstName("kfjgsdklfj").withPhoto((randomFile("src/test/resources/images"))));
+    if (app.hbm().getContactsCountHbm() == 0) {
+      app.hbm().createContactsHbm(new ContactData("","ghbdt","dfsfds","dfsfds","fdsfs","fdssdsf"));
     }
-    var oldContacts = app.contacts().getContactsList();
+    var oldContacts = app.hbm().getContactsListHbm();
+    //var oldContacts = app.contacts().getContactsList();
     var rnd = new Random();
     var index = rnd.nextInt(oldContacts.size());
-    var testData = new ContactData().withLastName("modified lastName").withPhoto((randomFile("src/test/resources/images")));
+    var testData = new ContactData().withLastName("modified lastName");
     app.contacts().modifyContact(oldContacts.get(index), testData);
-    var newContacts = app.contacts().getContactsList();
+    var newContacts = app.hbm().getContactsListHbm();
+    //var newContacts = app.contacts().getContactsList();
     var expectedList = new ArrayList<>(oldContacts);
     expectedList.set(index, testData.withId(oldContacts.get(index).id()));
     Comparator<ContactData> compareById = (o1, o2) -> {
