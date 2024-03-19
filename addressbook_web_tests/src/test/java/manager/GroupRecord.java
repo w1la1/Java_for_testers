@@ -3,6 +3,7 @@ package manager;
 import jakarta.persistence.*;
 import model.ContactData;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -17,7 +18,7 @@ public class GroupRecord {
   public String header;
   @Column(name = "group_footer")
   public String footer;
-  //  public Date deprecated = new Date();
+   //public Date deprecated = new Date();
   @ManyToMany
   @JoinTable(name = "address_in_groups",
       joinColumns = @JoinColumn(name = "group_id"),

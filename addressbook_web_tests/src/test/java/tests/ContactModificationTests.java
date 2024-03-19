@@ -14,7 +14,8 @@ public class ContactModificationTests extends TestBase {
   @Test
   void canModifyContact() {
     if (app.hbm().getContactsCountHbm() == 0) {
-      app.hbm().createContactsHbm(new ContactData("","ghbdt","dfsfds","dfsfds","fdsfs","fdssdsf"));
+      app.hbm().createContactsHbm(new ContactData("","ghbdt","s","dfsfds","dfsfds","fdsfs","fdssdsf"));
+      app.driver.navigate().refresh();
     }
     var oldContacts = app.hbm().getContactsListHbm();
     //var oldContacts = app.contacts().getContactsList();

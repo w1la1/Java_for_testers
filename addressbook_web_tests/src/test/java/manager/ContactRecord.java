@@ -13,6 +13,8 @@ public class ContactRecord {
  public int id;
   @Column(name = "lastname")
   public String lastname;
+  @Column(name = "middlename")
+  public String middlename;
   @Column(name = "firstname")
   public String firstname;
   @Column(name = "address")
@@ -21,13 +23,23 @@ public class ContactRecord {
   public String email;
   @Column(name = "home")
   public String phone;
+  public String nickname = "sdasd";
+  public String company = "kfdhsfjk";
+  public String title = "sdasd";
+  public String mobile = "89546";
+  public String work = "dsda";
+  public String fax = "89565";
+  public String email2 = "sdas";
+  public String email3 = "sdasd";
+  public String homepage = "dsds";
 
   public ContactRecord() {
   }
 
-  public ContactRecord(int id, String lastname, String firstname, String address, String email, String phone) {
+  public ContactRecord(int id, String lastname,String middlename, String firstname, String address, String email, String phone) {
     this.id = id;
     this.lastname = lastname;
+    this.middlename = middlename;
     this.firstname = firstname;
     this.address = address;
     this.email = email;

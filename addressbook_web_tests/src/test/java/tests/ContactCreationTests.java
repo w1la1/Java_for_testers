@@ -56,7 +56,7 @@ public class ContactCreationTests extends TestBase {
   }
 
   public static List<ContactData> negativeContactProvider() {
-    var result = new ArrayList<ContactData>(List.of(new ContactData("", "contact last name '", "contact firstname", "", "", "")));
+    var result = new ArrayList<ContactData>(List.of(new ContactData("","", "contact last name '", "contact firstname", "", "", "")));
     return result;
   }
 
@@ -104,11 +104,10 @@ public class ContactCreationTests extends TestBase {
       app.hbm().createGroupHbm(new GroupData("", "java_for_testers", "header", "footer"));}
     var group = app.hbm().getGroupsListHbm().get(0);
     var oldRelated = app.hbm().getContactsInGroup(group);
-    app.contacts().createContact(contact,group);
+    app.contacts().createContactInGroup(contact,group);
     var newRelated = app.hbm().getContactsInGroup(group);
     Assertions.assertEquals(oldRelated.size()+1,newRelated.size());
   }
-
 }
 
 

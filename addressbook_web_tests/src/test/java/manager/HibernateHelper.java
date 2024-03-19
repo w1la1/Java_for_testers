@@ -35,7 +35,7 @@ public class HibernateHelper extends HelperBase {
   }
 
   private static ContactData convertContacts(ContactRecord record) {
-    return new ContactData("" + record.id, record.lastname, record.firstname, record.address, record.email, record.phone);
+    return new ContactData("" + record.id, record.lastname, record.middlename, record.firstname, record.address, record.email, record.phone);
   }
 
 
@@ -44,7 +44,7 @@ public class HibernateHelper extends HelperBase {
     if ("".equals(id)) {
       id = "0";
     }
-    return new ContactRecord(Integer.parseInt(id), data.lastName(), data.firstName(), data.address(), data.eMail(), data.phone());
+    return new ContactRecord(Integer.parseInt(id), data.lastName(),data.middlename(), data.firstName(), data.address(), data.eMail(), data.phone());
   }
 
   public List<ContactData> getContactsListHbm() {
@@ -108,8 +108,8 @@ public class HibernateHelper extends HelperBase {
   }
 
   public List<ContactData> getContactsInGroup(GroupData group) {
-    return convertListContacts(sessionFactory.fromSession(session -> {
-      return session.get(GroupRecord.class,group.id()).contacts;
-    }));
+    return sessionFactory.fromSession(session -> {
+      return convertListContacts(session.get(GroupRecord.class,group.id()).contacts);
+    });
   }
 }
