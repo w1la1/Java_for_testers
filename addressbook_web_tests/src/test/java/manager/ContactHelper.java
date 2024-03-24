@@ -3,10 +3,13 @@ package manager;
 import model.ContactData;
 import model.GroupData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ContactHelper extends HelperBase {
   public ContactHelper(ApplicationManager manager) {
@@ -30,6 +33,7 @@ public class ContactHelper extends HelperBase {
     submitContactCreation();
     returnToContactPage();
   }
+
   public void createContactInGroup(ContactData contact, GroupData group) {
     initContactCreation();
     fillContactForm(contact);
@@ -37,7 +41,20 @@ public class ContactHelper extends HelperBase {
     submitContactCreation();
     returnToContactPage();
   }
-  public void removeContactInGroup(ContactData contact,GroupData group) {
+
+  public void replaceContactIntoGroup(ContactData contact, GroupData group) {
+    selectContact(contact);
+    selectGroupForReplaceContact(group);
+    addContactToGroup();
+    returnToContactPage();
+
+  }
+
+  private void addContactToGroup() {
+    click(By.name("add"));
+  }
+
+  public void removeContactInGroup(ContactData contact, GroupData group) {
     openContactPage();
     selectGroupInContactPage(group);
     selectContactForRemoveFromGroup(contact);
@@ -52,6 +69,11 @@ public class ContactHelper extends HelperBase {
   private void selectGroup(GroupData group) {
     new Select(manager.driver.findElement(By.name("new_group"))).selectByValue(group.id());
   }
+
+  private void selectGroupForReplaceContact(GroupData group) {
+    new Select(manager.driver.findElement(By.name("to_group"))).selectByValue(group.id());
+  }
+
   private void selectGroupInContactPage(GroupData group) {
     new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id());
   }
@@ -70,6 +92,7 @@ public class ContactHelper extends HelperBase {
   private void selectContact(ContactData contact) {
     click(By.cssSelector(String.format("input[value='%s']", contact.id())));
   }
+
   private void selectContactForRemoveFromGroup(ContactData contact) {
     click(By.name("selected[]"));
   }
@@ -87,8 +110,8 @@ public class ContactHelper extends HelperBase {
     type(By.name("firstname"), contact.firstName());
     type(By.name("address"), contact.address());
     type(By.name("email"), contact.eMail());
-    type(By.name("home"), contact.phone());
-   // attach(By.name("photo"), contact.photo());
+    type(By.name("home"), contact.home());
+    // attach(By.name("photo"), contact.photo());
   }
 
   private void initContactCreation() {
@@ -143,13 +166,49 @@ public class ContactHelper extends HelperBase {
 //      var email = td.findElement(By.xpath("./td[5]")).getText();
 //      var phone = td.findElement(By.xpath("./td[6]")).getText();
       //var lastName = className.findElement(By.xpath(String.format("//input[@id='%s']/following-sibling::td[1]", id))).getText();
-     // var firstName = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[2]", id))).getText();
-     // var address = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[3]", id))).getText();
-    //  var email = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[4]", id))).getText();
-     // var phone = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[5]", id))).getText();
+      // var firstName = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[2]", id))).getText();
+      // var address = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[3]", id))).getText();
+      //  var email = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[4]", id))).getText();
+      // var phone = className.findElement(By.xpath(String.format("//input[@id='%s']/parent::td/following-sibling::td[5]", id))).getText();
       contacts.add(new ContactData().withId(id).withLastName(lastName).withFirstName(firstName));
     }
     return contacts;
   }
 
+
+  public String getPhones(ContactData contact) {
+    return manager.driver.findElement(By.xpath(
+        String.format("//input[@id=%s]/../../td[6]", contact.id()))).getText();
+  }
+
+  public Map<String, String> getPhones() {
+    var result = new HashMap<String,String>();
+    List<WebElement> rows = manager.driver.findElements(By.name("entry"));
+    for (WebElement row : rows) {
+      var id = row.findElement(By.tagName("input")).getAttribute("id");
+      var phones = row.findElements(By.tagName("td")).get(5).getText();
+      result.put(id,phones);
+    }
+    return result;
+  }
+  public Map<String, String> getAddress() {
+    var result = new HashMap<String,String>();
+    List<WebElement> rows = manager.driver.findElements(By.name("entry"));
+    for (WebElement row : rows) {
+      var id = row.findElement(By.tagName("input")).getAttribute("id");
+      var address = row.findElements(By.tagName("td")).get(3).getText();
+      result.put(id,address);
+    }
+    return result;
+  }
+  public Map<String, String> getEmails() {
+    var result = new HashMap<String,String>();
+    List<WebElement> rows = manager.driver.findElements(By.name("entry"));
+    for (WebElement row : rows) {
+      var id = row.findElement(By.tagName("input")).getAttribute("id");
+      var emails = row.findElements(By.tagName("td")).get(4).getText();
+      result.put(id,emails);
+    }
+    return result;
+  }
 }

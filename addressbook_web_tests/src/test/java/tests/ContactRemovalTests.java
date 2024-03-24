@@ -13,7 +13,7 @@ public class ContactRemovalTests extends TestBase {
   @Test
   public void canRemoveContact() {
     if (app.hbm().getContactsCountHbm() == 0) {
-      app.hbm().createContactsHbm(new ContactData("", "ghbdt", "dfgh", "dfsfds", "dfsfds", "fdsfs", "fdssdsf"));
+      app.hbm().createContactsHbm(new ContactData("", "ghbdt", "dfgh", "dfsfds", "dfsfds", "fdsfs", "", "", "fdssdsf", "", "", ""));
       app.driver.navigate().refresh();
     }
     var oldContacts = app.hbm().getContactsListHbm();
@@ -35,7 +35,7 @@ public class ContactRemovalTests extends TestBase {
 //      app.contacts().createContact(new ContactData().withLastName("java_for_testers").withFirstName("kfjgsdklfj"));
 //    }
     if (app.hbm().getContactsCountHbm() == 0) {
-      app.hbm().createContactsHbm(new ContactData("", "ghbdt", "dfsfds", "", "dfsfds", "fdsfs", "fdssdsf"));
+      app.hbm().createContactsHbm(new ContactData("", "ghbdt", "dfsfds", "", "dfsfds", "fdsfs", "", "", "fdssdsf", "", "", ""));
       // app.contacts.click(By.linkText("home"));
       app.driver.navigate().refresh();
     }

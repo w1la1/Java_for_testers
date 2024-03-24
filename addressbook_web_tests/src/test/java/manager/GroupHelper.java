@@ -2,9 +2,11 @@ package manager;
 
 import model.GroupData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GroupHelper extends HelperBase {
 
@@ -91,23 +93,33 @@ public class GroupHelper extends HelperBase {
     }
 
     private void selectAllGroups() {
-        var checkboxes = manager.driver.findElements(By.name("selected[]"));
-        for (var checkbox : checkboxes) {
-            checkbox.click();
-        }
+        //var checkboxes = manager.driver.findElements(By.name("selected[]"));
+        //        for (var checkbox : checkboxes) {
+//            checkbox.click();
+//        }
+        manager.driver.findElements(By.name("selected[]"))
+            .forEach(WebElement::click);
+        //checkboxes.forEach(checkbox -> checkbox.click());
     }
 
     public List<GroupData> getGroupsList() {
         openGroupsPage();
-        var groups = new ArrayList<GroupData>();
+       // var groups = new ArrayList<GroupData>();
         var spans = manager.driver.findElements(By.cssSelector("span.group"));
-        for (var span : spans) {
-            var name = span.getText();
-            var checkbox = span.findElement(By.name("selected[]"));
-            var id = checkbox.getAttribute("value");
-            groups.add(new GroupData().withId(id).withName(name));
-
-        }
-        return groups;
+        return spans.stream()
+            .map(span -> {
+                var name = span.getText();
+                var checkbox = span.findElement(By.name("selected[]"));
+                var id = checkbox.getAttribute("value");
+                return new GroupData().withId(id).withName(name);
+            }).collect(Collectors.toList());
+//        for (var span : spans) {
+//            var name = span.getText();
+//            var checkbox = span.findElement(By.name("selected[]"));
+//            var id = checkbox.getAttribute("value");
+//            groups.add(new GroupData().withId(id).withName(name));
+//
+//        }
+       //return groups;
     }
 }

@@ -7,8 +7,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HibernateHelper extends HelperBase {
   private SessionFactory sessionFactory;
@@ -27,15 +27,16 @@ public class HibernateHelper extends HelperBase {
 
 
   static List<ContactData> convertListContacts(List<ContactRecord> records) {
-    List<ContactData> result = new ArrayList<>();
-    for (var record : records) {
-      result.add(convertContacts(record));
-    }
-    return result;
+return records.stream().map(HibernateHelper ::convertContacts).collect(Collectors.toList());
+    //    List<ContactData> result = new ArrayList<>();
+//    for (var record : records) {
+//      result.add(convertContacts(record));
+//    }
+//    return result;
   }
 
   private static ContactData convertContacts(ContactRecord record) {
-    return new ContactData("" + record.id, record.lastname, record.middlename, record.firstname, record.address, record.email, record.phone);
+    return new ContactData("" + record.id, record.lastname, record.middlename, record.firstname, record.address, record.email, record.email2, record.email3, record.home, record.mobile, record.work, record.phone2);
   }
 
 
@@ -44,7 +45,7 @@ public class HibernateHelper extends HelperBase {
     if ("".equals(id)) {
       id = "0";
     }
-    return new ContactRecord(Integer.parseInt(id), data.lastName(),data.middlename(), data.firstName(), data.address(), data.eMail(), data.phone());
+    return new ContactRecord(Integer.parseInt(id), data.lastName(),data.middlename(), data.firstName(), data.address(), data.eMail(), data.home());
   }
 
   public List<ContactData> getContactsListHbm() {
@@ -68,11 +69,12 @@ public class HibernateHelper extends HelperBase {
   }
 
   static List<GroupData> convertListGroups(List<GroupRecord> records) {
-    List<GroupData> result = new ArrayList<>();
-    for (var record : records) {
-      result.add(convertGroups(record));
-    }
-    return result;
+   return records.stream().map(HibernateHelper::convertGroups).collect(Collectors.toList());
+//    List<GroupData> result = new ArrayList<>();
+//    for (var record : records) {
+//      result.add(convertGroups(record));
+//    }
+//    return result;
   }
 
   private static GroupData convertGroups(GroupRecord record) {

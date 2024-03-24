@@ -1,20 +1,17 @@
 package tests;
 
 import model.ContactData;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
 
-import static manager.HelperBase.randomFile;
-
 public class ContactModificationTests extends TestBase {
   @Test
   void canModifyContact() {
     if (app.hbm().getContactsCountHbm() == 0) {
-      app.hbm().createContactsHbm(new ContactData("","ghbdt","s","dfsfds","dfsfds","fdsfs","fdssdsf"));
+      app.hbm().createContactsHbm(new ContactData("","ghbdt","s","dfsfds","dfsfds","fdsfs", "", "", "fdssdsf", "", "", ""));
       app.driver.navigate().refresh();
     }
     var oldContacts = app.hbm().getContactsListHbm();

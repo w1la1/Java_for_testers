@@ -52,11 +52,11 @@ public class ContactCreationTests extends TestBase {
         .withFirstName(CommonFunctions.randomString(15))
         .withAddress(CommonFunctions.randomString(10))
         .withEmail(CommonFunctions.randomString(15))
-        .withPhone(CommonFunctions.randomString(10)));
+        .withHome(CommonFunctions.randomString(10)));
   }
 
   public static List<ContactData> negativeContactProvider() {
-    var result = new ArrayList<ContactData>(List.of(new ContactData("","", "contact last name '", "contact firstname", "", "", "")));
+    var result = new ArrayList<ContactData>(List.of(new ContactData("","", "contact last name '", "contact firstname", "", "", "", "", "", "", "", "")));
     return result;
   }
 
@@ -105,6 +105,23 @@ public class ContactCreationTests extends TestBase {
     var group = app.hbm().getGroupsListHbm().get(0);
     var oldRelated = app.hbm().getContactsInGroup(group);
     app.contacts().createContactInGroup(contact,group);
+    var newRelated = app.hbm().getContactsInGroup(group);
+    Assertions.assertEquals(oldRelated.size()+1,newRelated.size());
+  }
+  @Test
+  public void canCreateNewContactAndPlaceItInGroup(){
+    var contact = new ContactData()
+        .withFirstName(CommonFunctions.randomString(10))
+        .withLastName(CommonFunctions.randomString(10));
+    app.hbm().createContactsHbm(contact);
+    app.driver.navigate().refresh();
+    if (app.hbm().getGroupsCountHbm() == 0) {
+      app.hbm().createGroupHbm(new GroupData("", "java_for_testers", "header", "footer"));
+      app.driver.navigate().refresh();}
+    var group = app.hbm().getGroupsListHbm().get(0);
+    var oldRelated = app.hbm().getContactsInGroup(group);
+    app.driver.navigate().refresh();
+    app.contacts().replaceContactIntoGroup(contact,group);
     var newRelated = app.hbm().getContactsInGroup(group);
     Assertions.assertEquals(oldRelated.size()+1,newRelated.size());
   }

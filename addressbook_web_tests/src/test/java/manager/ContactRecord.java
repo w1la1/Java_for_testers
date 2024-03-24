@@ -22,12 +22,13 @@ public class ContactRecord {
   @Column(name = "email")
   public String email;
   @Column(name = "home")
-  public String phone;
+  public String home;
   public String nickname = "sdasd";
   public String company = "kfdhsfjk";
   public String title = "sdasd";
   public String mobile = "89546";
   public String work = "dsda";
+  public String phone2;
   public String fax = "89565";
   public String email2 = "sdas";
   public String email3 = "sdasd";
@@ -43,6 +44,6 @@ public class ContactRecord {
     this.firstname = firstname;
     this.address = address;
     this.email = email;
-    this.phone = phone;
+    this.home = phone;
   }
 }
