@@ -47,9 +47,7 @@ public class ContactHelper extends HelperBase {
     selectGroupForReplaceContact(group);
     addContactToGroup();
     returnToContactPage();
-
   }
-
   private void addContactToGroup() {
     click(By.name("add"));
   }
@@ -57,7 +55,7 @@ public class ContactHelper extends HelperBase {
   public void removeContactInGroup(ContactData contact, GroupData group) {
     openContactPage();
     selectGroupInContactPage(group);
-    selectContactForRemoveFromGroup(contact);
+    selectContact(contact);
     removeContactFromGroup();
     returnToContactPage();
   }

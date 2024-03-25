@@ -1,6 +1,5 @@
 package tests;
 
-import common.CommonFunctions;
 import model.ContactData;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
@@ -14,7 +13,7 @@ public class ContactRemovalTests extends TestBase {
   public void canRemoveContact() {
     if (app.hbm().getContactsCountHbm() == 0) {
       app.hbm().createContactsHbm(new ContactData("", "ghbdt", "dfgh", "dfsfds", "dfsfds", "fdsfs", "", "", "fdssdsf", "", "", ""));
-      app.driver.navigate().refresh();
+      refreshPage();
     }
     var oldContacts = app.hbm().getContactsListHbm();
     //var oldContacts = app.contacts().getContactsList();
@@ -37,7 +36,7 @@ public class ContactRemovalTests extends TestBase {
     if (app.hbm().getContactsCountHbm() == 0) {
       app.hbm().createContactsHbm(new ContactData("", "ghbdt", "dfsfds", "", "dfsfds", "fdsfs", "", "", "fdssdsf", "", "", ""));
       // app.contacts.click(By.linkText("home"));
-      app.driver.navigate().refresh();
+      refreshPage();
     }
     app.contacts().removeAllContacts();
     Assertions.assertEquals(0, app.hbm().getContactsCountHbm());
@@ -45,21 +44,23 @@ public class ContactRemovalTests extends TestBase {
 
   @Test
   public void CanRemoveContactInGroup() {
-    var contact = new ContactData()
-        .withFirstName(CommonFunctions.randomString(10))
-        .withLastName(CommonFunctions.randomString(10));
+    if (app.hbm().getContactsCountHbm() == 0) {
+      app.hbm().createContactsHbm(new ContactData("", "ghbdt", "dfsfds", "", "dfsfds", "fdsfs", "", "", "fdssdsf", "", "", ""));
+    }
     if (app.hbm().getGroupsCountHbm() == 0) {
       app.hbm().createGroupHbm(new GroupData("", "java_for_testers", "header", "footer"));
     }
+    var contact = app.hbm().getContactsListHbm().get(0);
     var group = app.hbm().getGroupsListHbm().get(0);
     if (app.hbm().getContactsInGroup(group).isEmpty()) {
-      app.contacts().createContactInGroup(contact, group);
+      refreshPage();
+      app.contacts().replaceContactIntoGroup(contact, group);
     }
     var oldRelated = app.hbm().getContactsInGroup(group);
-   // app.contacts().createContactInGroup(contact, group);
+    refreshPage();
     app.contacts().removeContactInGroup(contact, group);
     var newRelated = app.hbm().getContactsInGroup(group);
-    Assertions.assertEquals(oldRelated.size() -1 , newRelated.size());
+    Assertions.assertEquals(oldRelated.size() - 1, newRelated.size());
   }
 }
 

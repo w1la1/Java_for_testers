@@ -11,6 +11,10 @@ import java.util.Properties;
 public class TestBase {
   protected static ApplicationManager app;
 
+  static void refreshPage() {
+    app.driver.navigate().refresh();
+  }
+
   @BeforeEach
   public void setUp() throws IOException {
     if (app == null) {

@@ -109,18 +109,21 @@ public class ContactCreationTests extends TestBase {
     Assertions.assertEquals(oldRelated.size()+1,newRelated.size());
   }
   @Test
-  public void canCreateNewContactAndPlaceItInGroup(){
-    var contact = new ContactData()
-        .withFirstName(CommonFunctions.randomString(10))
-        .withLastName(CommonFunctions.randomString(10));
-    app.hbm().createContactsHbm(contact);
-    app.driver.navigate().refresh();
+  public void canReplaceContactIntoGroup(){
+    if (app.hbm().getContactsCountHbm() == 0) {
+      app.hbm().createContactsHbm(new ContactData("", "ghbdt", "dfsfds", "", "dfsfds", "fdsfs", "", "", "fdssdsf", "", "", ""));
+    }
     if (app.hbm().getGroupsCountHbm() == 0) {
       app.hbm().createGroupHbm(new GroupData("", "java_for_testers", "header", "footer"));
-      app.driver.navigate().refresh();}
+    }
+    var contact = app.hbm().getContactsListHbm().get(0);
     var group = app.hbm().getGroupsListHbm().get(0);
+    var contactInGroup = app.hbm().getContactsInGroup(group).contains(contact);
+    if (contactInGroup) {
+      app.contacts().removeContactInGroup(contact,group);
+    }
     var oldRelated = app.hbm().getContactsInGroup(group);
-    app.driver.navigate().refresh();
+    refreshPage();
     app.contacts().replaceContactIntoGroup(contact,group);
     var newRelated = app.hbm().getContactsInGroup(group);
     Assertions.assertEquals(oldRelated.size()+1,newRelated.size());
