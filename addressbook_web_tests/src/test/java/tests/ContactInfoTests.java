@@ -9,19 +9,19 @@ import java.util.stream.Stream;
 
 public class ContactInfoTests extends TestBase {
   @Test
-  void testPhones() {
+  void testPhonesAddressesEmails() {
     if (app.hbm().getContactsCountHbm() == 0) {
       app.hbm().createContactsHbm(new ContactData("", "ghbdt", "dfsfds", "", "dfsfds", "fdsfs", "", "", "888", "999", "1", ""));
       app.driver.navigate().refresh();
     }
     var contacts = app.hbm().getContactsListHbm();
     var expected = contacts.stream().collect(Collectors.toMap(ContactData::id, contact ->
-        Stream.of(contact.home(), contact.mobile(), contact.work(), contact.secondary())
+        Stream.of(contact.home(), contact.mobile(), contact.work(), contact.secondary(),contact.address(),contact.eMail(), contact.eMail2(), contact.eMail3())
             .filter(s -> s != null && !"".equals(s))
             .collect(Collectors.joining("\n"))
     ));
-    var phones = app.contacts().getPhones();
-    Assertions.assertEquals(expected, phones);
+    var phonesAddressesEmails = app.contacts().getPhonesAddressesEmails();
+    Assertions.assertEquals(expected, phonesAddressesEmails);
   }
   @Test
   void testAddress() {
