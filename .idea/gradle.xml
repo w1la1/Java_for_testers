@@ -15,6 +15,16 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/mantis_tests" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../../gradle-8.5" />
+        <option name="gradleJvm" value="20" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/mantis_tests" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/sandbox" />
         <option name="gradleHome" value="$PROJECT_DIR$/../../../../gradle-8.5" />
         <option name="gradleJvm" value="20" />
