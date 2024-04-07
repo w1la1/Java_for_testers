@@ -27,6 +27,12 @@ public class SessionHelper extends HelperBase {
     type(By.name("email"), email);
     click(By.cssSelector("input[type='submit']"));
   }
+//  public void startCreation(String user,String email) {
+//    if (!manager.session().isLoggedIn()) {
+//      manager.session().login(manager.property("web.userName"),manager.property("web.password"));
+//    }
+//    manager.driver().get(String.format());
+//  }
 
   public void openPage(String url) {
     manager.driver.get(url);
