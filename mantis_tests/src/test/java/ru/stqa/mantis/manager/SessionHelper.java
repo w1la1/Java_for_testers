@@ -35,7 +35,7 @@ public class SessionHelper extends HelperBase {
 //  }
 
   public void openPage(String url) {
-    manager.driver.get(url);
+    manager.driver().get(url);
   }
 
   public void endOfRegistration(String realName, String password) {

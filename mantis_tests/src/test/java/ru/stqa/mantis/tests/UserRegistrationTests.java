@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.stqa.mantis.common.CommonFunctions;
 import ru.stqa.mantis.model.DeveloperMailUser;
+import ru.stqa.mantis.model.UserData;
 
 import java.time.Duration;
 
@@ -37,7 +38,7 @@ public class UserRegistrationTests extends TestBase {
   }
 
   @Test
-  void canCreateUserWithApi() throws InterruptedException {
+  void canCreateUser2() throws InterruptedException {
 
     var password = CommonFunctions.randomString(4);
     user = app.developerMail().addUser();
