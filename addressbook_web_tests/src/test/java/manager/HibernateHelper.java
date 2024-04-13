@@ -1,6 +1,7 @@
 package manager;
 
 
+import io.qameta.allure.Step;
 import model.ContactData;
 import model.GroupData;
 import org.hibernate.SessionFactory;
@@ -100,7 +101,7 @@ return records.stream().map(HibernateHelper ::convertContacts).collect(Collector
       return session.createQuery("select count (*) from GroupRecord", Long.class).getSingleResult();
     });
   }
-
+@Step
   public void createGroupHbm(GroupData groupData) {
     sessionFactory.inSession(session -> {
       session.getTransaction().begin();
